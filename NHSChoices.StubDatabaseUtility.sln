@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHSChoices.StubDatabaseUtility", "NHSChoices.StubDatabaseUtility\NHSChoices.StubDatabaseUtility.csproj", "{1E2BC455-9B95-4C30-AE77-544A266B8447}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHSChoices.StubDatabaseUtility.Tests.Integration", "NHSChoices.StubDatabaseUtility.Tests.Integration\NHSChoices.StubDatabaseUtility.Tests.Integration.csproj", "{B4F6BD02-659D-4746-86B5-3F9C3F5F95C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E2BC455-9B95-4C30-AE77-544A266B8447}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E2BC455-9B95-4C30-AE77-544A266B8447}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E2BC455-9B95-4C30-AE77-544A266B8447}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E2BC455-9B95-4C30-AE77-544A266B8447}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4F6BD02-659D-4746-86B5-3F9C3F5F95C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4F6BD02-659D-4746-86B5-3F9C3F5F95C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4F6BD02-659D-4746-86B5-3F9C3F5F95C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4F6BD02-659D-4746-86B5-3F9C3F5F95C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
