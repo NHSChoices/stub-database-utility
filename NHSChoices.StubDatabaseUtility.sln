@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHSChoices.StubDatabaseUtil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHSChoices.StubDatabaseUtility.Tests.Integration", "NHSChoices.StubDatabaseUtility.Tests.Integration\NHSChoices.StubDatabaseUtility.Tests.Integration.csproj", "{B4F6BD02-659D-4746-86B5-3F9C3F5F95C5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{A2AF4813-563E-4145-A336-C4BD276819E2}"
+	ProjectSection(SolutionItems) = preProject
+		License.txt = License.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
