@@ -62,10 +62,11 @@
     <Compile Include="StubDatabaseUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config.transform" />
+    <None Include="content\app.config.transform" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="License.txt" />
     <Content Include="README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
