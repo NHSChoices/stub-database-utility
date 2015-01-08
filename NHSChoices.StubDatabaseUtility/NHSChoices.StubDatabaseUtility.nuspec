@@ -15,6 +15,6 @@
     <tags>Database Testing Utility</tags>
   </metadata>
   <files>
-    <file src="content/app.config.transform" target="content/app.config" />
+    <file src="content/app.config.transform" target="content" />
   </files>	
 </package>
