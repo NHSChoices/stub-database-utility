@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("NHSChoices.StubDatabaseUtility")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A utility to enable stub databases to be created and cleared")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NHS Choices")]
 [assembly: AssemblyProduct("NHSChoices.StubDatabaseUtility")]
