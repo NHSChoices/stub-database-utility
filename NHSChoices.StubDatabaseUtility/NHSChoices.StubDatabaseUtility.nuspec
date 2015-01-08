@@ -6,7 +6,7 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://github.com/NHSChoices/stub-database-utility/License.txt</licenseUrl>
+    <licenseUrl>https://raw.githubusercontent.com/NHSChoices/stub-database-utility/master/License.txt</licenseUrl>
     <projectUrl>https://github.com/NHSChoices/stub-database-utility</projectUrl>
     <iconUrl>https://pbs.twimg.com/profile_images/458980061912129536/ULRE92q4_400x400.jpeg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
