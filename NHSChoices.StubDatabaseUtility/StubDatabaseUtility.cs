@@ -9,13 +9,10 @@
   public class StubDatabaseUtility
   {
     /// <summary>
-    /// This method will create a script based on the database name and SourceServer provided which will create a 
-    /// copy of the database with no data in it. The script is then run against the DestinationServer to create the 
-    /// database. This method should only be called once at the beggining of a test run.
+    /// This method will create a copy of the DB referenced by sourceServerConnection in the DB referenced by destinationServerConnection
+    /// The copy does not contain any data
     /// </summary>
-    /// <param name="sourceServerConnection"></param>
-    /// <param name="destinationServerConnection"></param>
-    public static void CopyDatabase(ServerConnection sourceServerConnection, ServerConnection destinationServerConnection)
+    public static void CopyDatabaseWithoutData(ServerConnection sourceServerConnection, ServerConnection destinationServerConnection)
     {
       var script = CreateDatabaseSchemaScript(sourceServerConnection);
 
@@ -25,12 +22,10 @@
     }
 
     /// <summary>
-    /// This method clears out all the data from a created test database. It should be run before each test using the 
+    /// This method clears out all the data from a database. It should be run before each test using the 
     /// test databases.
     /// </summary>
-    /// <param name="serverConnection">You must include the DestinationServer and the DatabaseName parameters. If a StubDatabasePrefix 
-    /// value was provided when creating the test database, then this must match what is passed in for this method.</param>
-    public static void ClearTables(ServerConnection serverConnection)
+    public static void ClearDatabaseTables(ServerConnection serverConnection)
     {
       var srv = new Server(serverConnection);
 

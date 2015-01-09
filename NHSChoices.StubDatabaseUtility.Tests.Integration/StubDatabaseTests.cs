@@ -20,7 +20,7 @@
       var destinationServerConnection = GetServerConnection("Destination");
 
       //Act
-      StubDatabaseUtility.CopyDatabase(sourceServerConnection, destinationServerConnection);
+      StubDatabaseUtility.CopyDatabaseWithoutData(sourceServerConnection, destinationServerConnection);
 
       //Assert
       Assert.That(new Server(destinationServerConnection).Databases[destinationServerConnection.DatabaseName], Is.Not.Null);
@@ -33,7 +33,7 @@
       var serverConnection = GetServerConnection("Destination");
 
       //Act
-      StubDatabaseUtility.ClearTables(serverConnection);
+      StubDatabaseUtility.ClearDatabaseTables(serverConnection);
 
       //Assert
       Assert.That(new Server(serverConnection).Databases[serverConnection.DatabaseName].Tables[0].RowCount, Is.EqualTo(0));
