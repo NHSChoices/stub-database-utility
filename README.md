@@ -1,26 +1,20 @@
-﻿StubDatabaseUtility
-===================
+# StubDatabaseUtility
 
-Summary
+## Summary
 
 c# utiltity for setting up and tearing down DB's for use in integration and acceptance testing
 
-﻿Introduction
+## Introduction
 
 Using the stub database utility, stub databases can be created and loaded up with test data for 
 running integration or acceptance tests against. The utility will create a copy of a database without 
 any data in it. The utility provides two methods which should be used when using created stub 
 databases. 
 
-	- CopyDatabase should be used once at the start of each test run. This method creates 
-	  a script which creates all tables, stored procs, functions and indexes from the source database.
-	  The method then drops and recreates the destination database to remove any created database from 
-	  previous test runs and create a fresh version based on the source server (an integration server 
-	  for the appropriate release branch).
-	- ClearTables - This function should be run in the setup of each test. It goes through each 
-	  table in the test database and clears down any created test data.
+* CopyDatabase should be used once at the start of each test run. This method creates a script which creates all tables, stored procs, functions and indexes from the source database. The method then drops and recreates the destination database to remove any created database from previous test runs and create a fresh version based on the source server (an integration server for the appropriate release branch).
+* ClearTables should be run in the setup of each test. It goes through each table in the test database and clears down any created test data.
 
-Usage
+## Usage
 
 See the tests [here](NHSChoices.StubDatabaseUtility.Tests.Integration/StubDatabaseTests.cs) for example usage.
 
