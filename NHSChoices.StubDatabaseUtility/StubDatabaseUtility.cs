@@ -8,33 +8,49 @@
 
   public class StubDatabaseUtility
   {
+    private readonly ServerConnection _destinationServerConnection;
+    private string _correctedScript;
+
+    public StubDatabaseUtility(ServerConnection destinationServerConnection)
+    {
+      _destinationServerConnection = destinationServerConnection;
+    }
+
     /// <summary>
-    /// This method will create a copy of the DB referenced by sourceServerConnection in the DB referenced by destinationServerConnection
-    /// The copy does not contain any data
+    /// This method will apply the schema of the DB referenced by sourceServerConnection
+    /// If the  
     /// </summary>
-    public static void CopyDatabaseWithoutData(ServerConnection sourceServerConnection, ServerConnection destinationServerConnection)
+    public void CopySchemaFromDatabase(ServerConnection sourceServerConnection)
     {
       var script = CreateDatabaseSchemaScript(sourceServerConnection);
 
-      var correctedScript = CorrectInvalidWithStatements(script);
+      _correctedScript = CorrectInvalidWithStatements(script);
 
-      BuildDbCopy(destinationServerConnection.ServerInstance, destinationServerConnection.DatabaseName, correctedScript);
+      BuildDbCopy(_destinationServerConnection.ServerInstance, _destinationServerConnection.DatabaseName, _correctedScript);
     }
 
     /// <summary>
     /// This method clears out all the data from a database. It should be run before each test using the 
     /// test databases.
     /// </summary>
-    public static void ClearDatabaseTables(ServerConnection serverConnection)
+    /// <param name="tableList"></param>
+    public void ClearDatabaseTables(string[] tableList)
+    {
+
+      var db = GetDatabase(_destinationServerConnection);
+
+      foreach (var table in tableList)
+      {
+        //table.TruncateData(); //Can't truncate data when FK constraints exist
+        db.ExecuteNonQuery(string.Format("delete from {0}", table));
+      }
+    }
+
+    private static Database GetDatabase(ServerConnection serverConnection)
     {
       var srv = new Server(serverConnection);
-
       var db = srv.Databases[serverConnection.DatabaseName];
-
-      foreach (Table table in db.Tables)
-      {
-        table.TruncateData();
-      }
+      return db;
     }
 
     private static string CorrectInvalidWithStatements(string script)
@@ -44,19 +60,18 @@
 
     private static string CreateDatabaseSchemaScript(ServerConnection sourceServerConnection)
     {
-      var sourceServer = new Server(sourceServerConnection);
-      var sourceDb = sourceServer.Databases[sourceServerConnection.DatabaseName];
+      var db = GetDatabase(sourceServerConnection);
 
       var tempFileName = Path.GetTempFileName();
 
-      var xfr = new Transfer(sourceDb)
+      var xfr = new Transfer(db)
       {
         CopyData = false,
         PreserveLogins = true,
         CopyAllLogins = false,
         CopyAllTables = true,
         CopyAllUsers = false,
-        Options = {WithDependencies = true, FileName = tempFileName,},
+        Options = {WithDependencies = true, FileName = tempFileName, DriAllConstraints = true, DriForeignKeys = true},
         //DestinationDatabase = arguments.DestinationDatabaseName,
         //DestinationServer = sourceServer.Name,
         //DestinationLoginSecure = true,
