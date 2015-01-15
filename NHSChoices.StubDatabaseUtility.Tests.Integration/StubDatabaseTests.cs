@@ -53,6 +53,18 @@
 
     }
 
+    [Test]
+    public void DatabaseTableClearShouldThrowExceptionWhenTableUnknown()
+    {
+      //Arrange
+      var serverConnection = GetServerConnection("Target");
+      var stubDatabaseUtility = GetStubDatabaseUtility(serverConnection);
+
+      //Act + Assert
+      var exception = Assert.Throws<Exception>(() => stubDatabaseUtility.ClearDatabaseTables(new[] { "UnknownTable" }));
+      Assert.That(exception.Message, Is.EqualTo("Delete from table 'UnknownTable' failed. See inner exception for details."));
+    }
+
     private static void DropDatabase(ServerConnection destinationServerConnection)
     {
       var destinationServer = new Server(destinationServerConnection);

@@ -41,8 +41,16 @@
 
       foreach (var table in tableList)
       {
+        try
+        {
+          db.ExecuteNonQuery(string.Format("delete from {0}", table));
+        }
+        catch (Exception ex)
+        {
+
+          throw new Exception(string.Format("Delete from table '{0}' failed. See inner exception for details.", table), ex);
+        }
         //table.TruncateData(); //Can't truncate data when FK constraints exist
-        db.ExecuteNonQuery(string.Format("delete from {0}", table));
       }
     }
 
