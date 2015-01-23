@@ -1,7 +1,9 @@
 ﻿namespace NHSChoices.StubDatabaseUtility
 {
   using System;
+  using System.Collections.Generic;
   using System.IO;
+  using System.Linq;
   using System.Text.RegularExpressions;
   using Microsoft.SqlServer.Management.Common;
   using Microsoft.SqlServer.Management.Smo;
@@ -10,6 +12,7 @@
   {
     private readonly ServerConnection _destinationServerConnection;
     private string _correctedScript;
+    private readonly List<Insertion> _insertionList = new List<Insertion>();
 
     public StubDatabaseUtility(ServerConnection destinationServerConnection)
     {
@@ -27,31 +30,6 @@
       _correctedScript = CorrectInvalidWithStatements(script);
 
       BuildDbCopy(_destinationServerConnection.ServerInstance, _destinationServerConnection.DatabaseName, _correctedScript);
-    }
-
-    /// <summary>
-    /// This method clears out all the data from a database. It should be run before each test using the 
-    /// test databases.
-    /// </summary>
-    /// <param name="tableList"></param>
-    public void ClearDatabaseTables(string[] tableList)
-    {
-
-      var db = GetDatabase(_destinationServerConnection);
-
-      foreach (var table in tableList)
-      {
-        try
-        {
-          db.ExecuteNonQuery(string.Format("delete from {0}", table));
-        }
-        catch (Exception ex)
-        {
-
-          throw new Exception(string.Format("Delete from table '{0}' failed. See inner exception for details.", table), ex);
-        }
-        //table.TruncateData(); //Can't truncate data when FK constraints exist
-      }
     }
 
     private static Database GetDatabase(ServerConnection serverConnection)
@@ -121,6 +99,43 @@
 
 
     }
-  }
 
+    public void InsertTableData(Insertion[] insertionList)
+    {
+
+      var db = GetDatabase(_destinationServerConnection);
+
+      foreach (var insertion in insertionList)
+      {
+        try
+        {
+          db.ExecuteNonQuery(insertion.GetInsertionString());
+          _insertionList.Add(insertion);
+        }
+        catch (Exception ex)
+        {
+          throw new Exception(string.Format("Insert into table '{0}' failed. See inner exception for details.", insertion.TableName), ex);
+        }
+      }
+
+    }
+
+    public void DeleteTableData()
+    {
+      var db = GetDatabase(_destinationServerConnection);
+
+      foreach (var insertion in _insertionList.AsEnumerable().Reverse() )
+      {
+        try
+        {
+          db.ExecuteNonQuery(insertion.GetDeletionString());
+        }
+        catch (Exception ex)
+        {
+          throw new Exception(string.Format("Delete from table '{0}' failed. See inner exception for details.", insertion.TableName), ex);
+        }
+      }
+
+    }
+  }
 }
